@@ -14,6 +14,7 @@ import com.xin.bean.OrderConditionBean;
 import com.xin.bean.OrderInfoBean;
 import com.xin.dao.ServiceDao;
 import com.xin.dao.impl.ServiceDaoImpl;
+import com.xin.utils.DebugUtils;
 import com.xin.utils.StringsUtils;
 
 public class GetOrdersServlet extends HttpServlet{
@@ -37,9 +38,13 @@ public class GetOrdersServlet extends HttpServlet{
 //		String scsj = StringsUtils.getParamToU8(req, "scsj");
 //		String desc = StringsUtils.getParamToU8(req, "desc");
 
-		System.out.println("接收数据");
+		if (DebugUtils.isDebug) {
+			System.out.println("接收数据");
+		}
 		String orderConditionJson = StringsUtils.getParamToU8(req, "orderCondition");
-		System.out.println(orderConditionJson);
+		if (DebugUtils.isDebug) {
+			System.out.println(orderConditionJson);
+		}
 
 //		OrderInfoBean orderInfoBean = new OrderInfoBean(orderNo, start, end, price, shsj, scry, scsj,desc);
 		OrderConditionBean orderConditionBean = new Gson().fromJson(orderConditionJson, OrderConditionBean.class);

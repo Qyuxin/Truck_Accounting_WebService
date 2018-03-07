@@ -209,7 +209,7 @@ public class ServiceDaoImpl implements ServiceDao {
 			sql.append(" AND order_havenumber = '")
 					.append(bean.getOrderHavenumber()).append("' ");
 		}
-		sql.append(" order by order_shsj desc ");
+		sql.append(" order by order_shrq desc ");
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -228,6 +228,7 @@ public class ServiceDaoImpl implements ServiceDao {
 				String scsj = rs.getString("order_scsj");
 				String desc = rs.getString("order_desc");
 				String updown = rs.getString("order_updown");
+				String orderHaveNumber = rs.getString("order_havenumber");
 				String orderNumber = rs.getString("order_number");
 
 				OrderInfoBean infoBean = new OrderInfoBean();
@@ -242,6 +243,7 @@ public class ServiceDaoImpl implements ServiceDao {
 				infoBean.setScsj(scsj);
 				infoBean.setDesc(desc);
 				infoBean.setUpdown(updown);
+				infoBean.setOrderHavenumber(orderHaveNumber);
 				infoBean.setOrderNumber(orderNumber);
 
 				listOrders.add(infoBean);
