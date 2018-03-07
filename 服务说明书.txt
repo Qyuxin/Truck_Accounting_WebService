@@ -1,0 +1,50 @@
+用户登陆
+/userLogin
+参数：
+username  账号
+pwd  密码
+
+获取所有公司名
+/getComs
+无参数
+
+根据公司名获取起始地址
+/getStartsByCom
+参数
+comName  公司名称
+
+根据起始地址获取终点
+/getEndsByStart
+参数
+start  起始地址
+
+根据起始地址和终点获取价格和是否上下货
+/getUAPBySAE
+参数
+start  起始地址
+end  终点
+
+保存订单信息
+/addOrder
+参数
+orderInfo  订单信息 Json格式
+{
+orderNo  订单编号 时间戳
+com  厂名
+start  开始地址
+end  结束地址
+price  送货价格
+shrq  送货日期
+shsjd  送货时间段
+scry  上传人员
+scsj  上传时间
+desc  派车理由
+updown  上下货
+orderNumber  单号
+}
+
+获取订单信息
+/getOrders
+参数
+orderCondition  订单查询条件  Json格式
+

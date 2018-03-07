@@ -1,0 +1,13 @@
+数据库信息
+rds7wfp8tgk6a2723244.mysql.rds.aliyuncs.com:3306
+shyladmin/Water17902139
+
+库名
+shyl
+
+表名
+bdf2_ue
+用户账号信息
+
+bdf2_shinfo
+送货信息
