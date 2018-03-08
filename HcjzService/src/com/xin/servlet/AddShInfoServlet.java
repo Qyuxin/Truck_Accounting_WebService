@@ -14,8 +14,9 @@ import com.xin.dao.ServiceDao;
 import com.xin.dao.impl.ServiceDaoImpl;
 import com.xin.utils.StringsUtils;
 
-public class AddOrderServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+public class AddShInfoServlet extends HttpServlet{
+
+	private static final long serialVersionUID = -6164061478686752846L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -27,7 +28,7 @@ public class AddOrderServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		String orderInfoJson = StringsUtils.getParamToU8(req, "orderInfo");
+		String shInfoJson = StringsUtils.getParamToU8(req, "shInfo");
 
 //		OrderInfoBean orderInfoBean = new OrderInfoBean(orderNo, start, end, price, shsj, scry, scsj,desc);
 		OrderInfoBean orderInfoBean = new Gson().fromJson(orderInfoJson, new OrderInfoBean().getClass());

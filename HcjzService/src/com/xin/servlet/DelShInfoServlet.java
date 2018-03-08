@@ -14,8 +14,9 @@ import com.xin.dao.ServiceDao;
 import com.xin.dao.impl.ServiceDaoImpl;
 import com.xin.utils.StringsUtils;
 
-public class AddOrderServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+public class DelShInfoServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -3219077842460709791L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -27,13 +28,12 @@ public class AddOrderServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		String orderInfoJson = StringsUtils.getParamToU8(req, "orderInfo");
+		String orderNo = StringsUtils.getParamToU8(req, "orderNo");
 
 //		OrderInfoBean orderInfoBean = new OrderInfoBean(orderNo, start, end, price, shsj, scry, scsj,desc);
-		OrderInfoBean orderInfoBean = new Gson().fromJson(orderInfoJson, new OrderInfoBean().getClass());
 		
 		ServiceDao dao = new ServiceDaoImpl();
-		int result = dao.addOrder(orderInfoBean);
+		int result = dao.deleteOrder(orderNo);
 		resp.setCharacterEncoding("utf-8"); 
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html; charset=utf-8");

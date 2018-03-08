@@ -48,3 +48,33 @@ orderNumber  单号
 参数
 orderCondition  订单查询条件  Json格式
 
+修改订单信息
+/updateOrder
+参数
+orderInfo  订单修改  Json格式
+
+删除订单信息
+/delOrder
+参数
+orderNo  订单编号 
+
+保存预留送货信息
+/addShInfo
+参数
+shInfo  订单信息 Json格式
+
+获取预留送货信息
+/getShInfos
+参数
+com  厂名 可为空
+
+修改预留送货信息
+/updateShInfo
+参数
+shInfo  订单修改  Json格式
+
+删除预留送货信息
+/delShInfo
+参数
+id  编号 
+

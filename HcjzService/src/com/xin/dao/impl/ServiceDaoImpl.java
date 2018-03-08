@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xin.bean.ShInfoBean;
 import com.xin.bean.UpdownAndPriceBean;
 import com.xin.bean.OrderConditionBean;
 import com.xin.bean.OrderInfoBean;
 import com.xin.dao.ServiceDao;
 import com.xin.utils.JdbcUtils;
+import com.xin.utils.StringUtils;
 
 public class ServiceDaoImpl implements ServiceDao {
 	/**
@@ -154,58 +156,63 @@ public class ServiceDaoImpl implements ServiceDao {
 		Connection conn = JdbcUtils.getConn();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM bdf2_order WHERE 1 = 1 ");
-		if (bean.getOrderNo() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getOrderNo())) {
 			sql.append(" AND order_no = '").append(bean.getOrderNo())
 					.append("' ");
 		}
-		if (bean.getCom() != null) {
-			sql.append(" AND order_com = '").append(bean.getCom()).append("' ");
+		if (!StringUtils.isNullOrEmpty(bean.getCom())) {
+			if (bean.getCom().equals("other")) {
+				sql.append(" AND order_com != '盛世' AND order_com != '华光' ");
+			} else {
+				sql.append(" AND order_com = '").append(bean.getCom())
+						.append("' ");
+			}
 		}
-		if (bean.getDesc() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getDesc())) {
 			sql.append(" AND order_desc = '").append(bean.getDesc())
 					.append("' ");
 		}
-		if (bean.getEnd() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getEnd())) {
 			sql.append(" AND order_jsdz = '").append(bean.getEnd())
 					.append("' ");
 		}
-		if (bean.getOrderNumber() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getOrderNumber())) {
 			sql.append(" AND order_number = '").append(bean.getOrderNumber())
 					.append("' ");
 		}
-		if (bean.getPrice() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getPrice())) {
 			sql.append(" AND order_shjg = '").append(bean.getPrice())
 					.append("' ");
 		}
-		if (bean.getScry() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getScry())) {
 			sql.append(" AND order_scry = '").append(bean.getScry())
 					.append("' ");
 		}
-		if (bean.getStart() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getStart())) {
 			sql.append(" AND order_ksdz = '").append(bean.getStart())
 					.append("' ");
 		}
-		if (bean.getUpdown() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getUpdown())) {
 			sql.append(" AND order_updown = '").append(bean.getUpdown())
 					.append("' ");
 		}
-		if (bean.getShrqStart() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getShrqStart())) {
 			sql.append(" AND order_shrq >= '").append(bean.getShrqStart())
 					.append("' ");
 		}
-		if (bean.getShrqEnd() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getShrqEnd())) {
 			sql.append(" AND order_shrq <= '").append(bean.getShrqEnd())
 					.append("' ");
 		}
-		if (bean.getScsjStart() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getScsjStart())) {
 			sql.append(" AND order_scsj >= '").append(bean.getScsjStart())
 					.append("' ");
 		}
-		if (bean.getScsjEnd() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getScsjEnd())) {
 			sql.append(" AND order_scsj <= '").append(bean.getScsjEnd())
 					.append("235959' ");
 		}
-		if (bean.getOrderHavenumber() != null) {
+		if (!StringUtils.isNullOrEmpty(bean.getOrderHavenumber())) {
 			sql.append(" AND order_havenumber = '")
 					.append(bean.getOrderHavenumber()).append("' ");
 		}
@@ -258,7 +265,7 @@ public class ServiceDaoImpl implements ServiceDao {
 	}
 
 	// SELECT info_jsdz,info_shjg FROM bdf2_shinfo WHERE info_ksdz = '盛世';
-	public int saveOrder(OrderInfoBean orderInfoBean) {
+	public int addOrder(OrderInfoBean orderInfoBean) {
 		int result = 0;
 		Connection conn = JdbcUtils.getConn();
 		String sql = "INSERT INTO `shyl`.`bdf2_order` "
@@ -282,6 +289,183 @@ public class ServiceDaoImpl implements ServiceDao {
 			pstmt.setString(11, orderInfoBean.getUpdown());
 			pstmt.setString(12, orderInfoBean.getOrderHavenumber());
 			pstmt.setString(13, orderInfoBean.getOrderNumber());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			result = -1;
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(null, pstmt, conn);
+		}
+		return result;
+	}
+
+	public int updateOrder(OrderInfoBean orderInfoBean) {
+		int result = 0;
+		Connection conn = JdbcUtils.getConn();
+		String sql = "UPDATE `shyl`.`bdf2_order` "
+				+ "SET  `order_com`=?, `order_ksdz`=?, "
+				+ "`order_jsdz`=?, `order_shjg`=?, `order_shrq`=?, `order_shsjd`=?, "
+				+ "`order_scry`=?, `order_scsj`=?, `order_desc`=?, `order_updown`=?, "
+				+ "`order_havenumber`=?, `order_number`=? "
+				+ "WHERE (`order_no`=?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, orderInfoBean.getCom());
+			pstmt.setString(2, orderInfoBean.getStart());
+			pstmt.setString(3, orderInfoBean.getEnd());
+			pstmt.setString(4, orderInfoBean.getPrice());
+			pstmt.setString(5, orderInfoBean.getShrq());
+			pstmt.setString(6, orderInfoBean.getShsjd());
+			pstmt.setString(7, orderInfoBean.getScry());
+			pstmt.setString(8, orderInfoBean.getScsj());
+			pstmt.setString(9, orderInfoBean.getDesc());
+			pstmt.setString(10, orderInfoBean.getUpdown());
+			pstmt.setString(11, orderInfoBean.getOrderHavenumber());
+			pstmt.setString(12, orderInfoBean.getOrderNumber());
+
+			pstmt.setString(13, orderInfoBean.getOrderNo());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			result = -1;
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(null, pstmt, conn);
+		}
+		return result;
+	}
+
+	// delete from shyl.bdf2_order where order_no = '' ;
+	public int deleteOrder(String orderNo) {
+		int result = 0;
+		Connection conn = JdbcUtils.getConn();
+		String sql = "delete from shyl.bdf2_order where order_no = ? '";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, orderNo);
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			result = -1;
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(null, pstmt, conn);
+		}
+		return result;
+	}
+
+	// SELECT info_jsdz,info_shjg FROM bdf2_shinfo WHERE info_ksdz = '盛世';
+	public List<ShInfoBean> getShInfos(String comInfo) {
+		List<ShInfoBean> listOrders = new ArrayList<ShInfoBean>();
+		Connection conn = JdbcUtils.getConn();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM bdf2_shinfo WHERE 1 = 1 ");
+		if (!StringUtils.isNullOrEmpty(comInfo)) {
+			sql.append(" AND info_gsmc = '").append(comInfo).append("' ");
+		}
+		sql.append(" order by info_gsmc desc ");
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String com = rs.getString("info_gsmc");
+				String ksdz = rs.getString("info_ksdz");
+				String jsdz = rs.getString("info_jsdz");
+				String price = rs.getString("info_shjg");
+				String updown = rs.getString("info_updown");
+				String haveNumber = rs.getString("info_havenumber");
+
+				ShInfoBean infoBean = new ShInfoBean();
+				infoBean.setId(id);
+				infoBean.setCom(com);
+				infoBean.setStart(ksdz);
+				infoBean.setEnd(jsdz);
+				infoBean.setPrice(price);
+				infoBean.setUpdown(updown);
+				infoBean.setHavenumber(haveNumber);
+
+				listOrders.add(infoBean);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(rs, pstmt, conn);
+		}
+		return listOrders;
+	}
+
+	// SELECT info_jsdz,info_shjg FROM bdf2_shinfo WHERE info_ksdz = '盛世';
+	public int addShInfo(ShInfoBean infoBean) {
+		int result = 0;
+		Connection conn = JdbcUtils.getConn();
+		String sql = "INSERT INTO `shyl`.`bdf2_shinfo` "
+				+ "(`info_gsmc`, `info_ksdz`, `info_jsdz`, `info_shjg`, `info_updown`, `info_havanumber` ) "
+				+ "VALUES (?, ?, ?, ?, ?, ?);";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, infoBean.getCom());
+			pstmt.setString(2, infoBean.getStart());
+			pstmt.setString(3, infoBean.getEnd());
+			pstmt.setString(4, infoBean.getPrice());
+			pstmt.setString(5, infoBean.getUpdown());
+			pstmt.setString(6, infoBean.getHavenumber());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			result = -1;
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(null, pstmt, conn);
+		}
+		return result;
+	}
+
+	public int updateShInfo(ShInfoBean infoBean) {
+		int result = 0;
+		Connection conn = JdbcUtils.getConn();
+		String sql = "UPDATE `shyl`.`bdf2_shinfo` "
+				+ "SET  `info_gsmc`=?, `info_ksdz`=?, `info_jsdz`=?,  "
+				+ "`info_shjg`=?, `info_updown`=?, `info_havanumber`= ? "
+				+ " WHERE (`id`= ? );";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, infoBean.getCom());
+			pstmt.setString(2, infoBean.getStart());
+			pstmt.setString(3, infoBean.getEnd());
+			pstmt.setString(4, infoBean.getPrice());
+			pstmt.setString(5, infoBean.getUpdown());
+			pstmt.setString(6, infoBean.getHavenumber());
+			pstmt.setString(7, infoBean.getId());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			result = -1;
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.free(null, pstmt, conn);
+		}
+		return result;
+	}
+
+	// delete from shyl.bdf2_order where order_no = '' ;
+	public int deleteShInfo(String id) {
+		int result = 0;
+		Connection conn = JdbcUtils.getConn();
+		String sql = "delete from shyl.bdf2_shinfo where order_no = ? '";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, id);
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {

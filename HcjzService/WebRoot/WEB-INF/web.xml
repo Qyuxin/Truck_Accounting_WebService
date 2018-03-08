@@ -50,13 +50,14 @@
 		<url-pattern>/getUAPBySAE</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 账单信息 -->
 	<servlet>
 		<servlet-name>addOrder</servlet-name>
 		<servlet-class>com.xin.servlet.AddOrderServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>getOrders</servlet-name>
-		<url-pattern>/getOrders</url-pattern>
+		<servlet-name>addOrder</servlet-name>
+		<url-pattern>/addOrder</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -64,8 +65,64 @@
 		<servlet-class>com.xin.servlet.GetOrdersServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>addOrder</servlet-name>
-		<url-pattern>/addOrder</url-pattern>
+		<servlet-name>getOrders</servlet-name>
+		<url-pattern>/getOrders</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateOrder</servlet-name>
+		<servlet-class>com.xin.servlet.GetOrdersServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateOrder</servlet-name>
+		<url-pattern>/updateOrder</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>delOrder</servlet-name>
+		<servlet-class>com.xin.servlet.DelOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>delOrder</servlet-name>
+		<url-pattern>/delOrder</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 账单预留信息 -->
+	<servlet>
+		<servlet-name>addShInfo</servlet-name>
+		<servlet-class>com.xin.servlet.AddShInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addShInfo</servlet-name>
+		<url-pattern>/addShInfo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>getShInfos</servlet-name>
+		<servlet-class>com.xin.servlet.GetShInfosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getShInfos</servlet-name>
+		<url-pattern>/getShInfos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateShInfo</servlet-name>
+		<servlet-class>com.xin.servlet.GetShInfosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateShInfo</servlet-name>
+		<url-pattern>/updateShInfo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>delShInfo</servlet-name>
+		<servlet-class>com.xin.servlet.DelShInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>delShInfo</servlet-name>
+		<url-pattern>/delShInfo</url-pattern>
 	</servlet-mapping>
 	
   <welcome-file-list>

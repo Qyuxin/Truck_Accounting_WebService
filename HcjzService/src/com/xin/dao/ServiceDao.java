@@ -24,8 +24,12 @@ public interface ServiceDao {
 	public List<String> getEndsByStart(String startPoint);
 
 	public List<UpdownAndPriceBean> getUpdownAndPriceByStartAndEnd(String startPoint,String endPoint);
-	
-	public int saveOrder(OrderInfoBean orderInfoBean);
+
+	public int addOrder(OrderInfoBean orderInfoBean);
+
+	public int updateOrder(OrderInfoBean orderInfoBean);
+
+	public int deleteOrder(String orderNo);
 
 	public List<OrderInfoBean> getOrders(OrderConditionBean orderConditionBean);
 }
