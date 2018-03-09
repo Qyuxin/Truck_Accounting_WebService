@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.xin.bean.OrderConditionBean;
 import com.xin.bean.OrderInfoBean;
+import com.xin.bean.ShInfoBean;
 import com.xin.dao.ServiceDao;
 import com.xin.dao.impl.ServiceDaoImpl;
 import com.xin.utils.DebugUtils;
@@ -29,28 +30,19 @@ public class GetShInfosServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-//		String orderNo = StringsUtils.getParamToU8(req, "orderNo");
-//		String start = StringsUtils.getParamToU8(req, "start");
-//		String end = StringsUtils.getParamToU8(req, "end");
-//		String price = StringsUtils.getParamToU8(req, "price");
-//		String shsj = StringsUtils.getParamToU8(req, "shsj");
-//		String scry = StringsUtils.getParamToU8(req, "scry");
-//		String scsj = StringsUtils.getParamToU8(req, "scsj");
-//		String desc = StringsUtils.getParamToU8(req, "desc");
 
 		if (DebugUtils.isDebug) {
-			System.out.println("接收数据");
+			System.out.println("接收数据  GetShInfosServlet");
 		}
-		String orderConditionJson = StringsUtils.getParamToU8(req, "orderCondition");
+		String com = StringsUtils.getParamToU8(req, "com");
 		if (DebugUtils.isDebug) {
-			System.out.println(orderConditionJson);
+			System.out.println(com);
 		}
 
 //		OrderInfoBean orderInfoBean = new OrderInfoBean(orderNo, start, end, price, shsj, scry, scsj,desc);
-		OrderConditionBean orderConditionBean = new Gson().fromJson(orderConditionJson, OrderConditionBean.class);
 		
 		ServiceDao dao = new ServiceDaoImpl();
-		List<OrderInfoBean> result = dao.getOrders(orderConditionBean);
+		List<ShInfoBean> result = dao.getShInfos(com);
 		resp.setCharacterEncoding("utf-8"); 
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html; charset=utf-8");

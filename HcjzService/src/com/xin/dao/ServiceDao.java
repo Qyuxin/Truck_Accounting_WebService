@@ -2,6 +2,7 @@ package com.xin.dao;
 
 import java.util.List;
 
+import com.xin.bean.ShInfoBean;
 import com.xin.bean.UpdownAndPriceBean;
 import com.xin.bean.OrderConditionBean;
 import com.xin.bean.OrderInfoBean;
@@ -32,4 +33,12 @@ public interface ServiceDao {
 	public int deleteOrder(String orderNo);
 
 	public List<OrderInfoBean> getOrders(OrderConditionBean orderConditionBean);
+
+	public int addShInfo(ShInfoBean shInfoBean);
+
+	public int updateShInfo(ShInfoBean shInfoBean);
+
+	public int deleteShInfo(String id);
+
+	public List<ShInfoBean> getShInfos(String com);
 }
