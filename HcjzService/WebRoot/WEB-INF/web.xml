@@ -71,7 +71,7 @@
 	
 	<servlet>
 		<servlet-name>updateOrder</servlet-name>
-		<servlet-class>com.xin.servlet.GetOrdersServlet</servlet-class>
+		<servlet-class>com.xin.servlet.UpdateOrderServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>updateOrder</servlet-name>

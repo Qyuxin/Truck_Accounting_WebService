@@ -30,7 +30,7 @@ public interface ServiceDao {
 
 	public int updateOrder(OrderInfoBean orderInfoBean);
 
-	public int deleteOrder(String orderNo);
+	public int deleteOrder(String user,String orderNo);
 
 	public List<OrderInfoBean> getOrders(OrderConditionBean orderConditionBean);
 

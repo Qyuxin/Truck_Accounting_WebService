@@ -56,6 +56,7 @@ orderInfo  订单修改  Json格式
 删除订单信息
 /delOrder
 参数
+user  删除人员 
 orderNo  订单编号 
 
 保存预留送货信息

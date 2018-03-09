@@ -27,13 +27,14 @@ public class DelOrderServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
+		String user = StringsUtils.getParamToU8(req, "user");
 		String orderNo = StringsUtils.getParamToU8(req, "orderNo");
 
 //		OrderInfoBean orderInfoBean = new OrderInfoBean(orderNo, start, end, price, shsj, scry, scsj,desc);
 		
 		ServiceDao dao = new ServiceDaoImpl();
-		int result = dao.deleteOrder(orderNo);
+		int result = dao.deleteOrder(user,orderNo);
 		resp.setCharacterEncoding("utf-8"); 
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html; charset=utf-8");

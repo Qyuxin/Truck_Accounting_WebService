@@ -12,6 +12,7 @@ import com.xin.bean.UpdownAndPriceBean;
 import com.xin.bean.OrderConditionBean;
 import com.xin.bean.OrderInfoBean;
 import com.xin.dao.ServiceDao;
+import com.xin.utils.DateUtils;
 import com.xin.utils.JdbcUtils;
 import com.xin.utils.StringUtils;
 
@@ -156,6 +157,7 @@ public class ServiceDaoImpl implements ServiceDao {
 		Connection conn = JdbcUtils.getConn();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM bdf2_order WHERE 1 = 1 ");
+		sql.append(" AND order_isdel = '0' ");//未被删除的订单
 		if (!StringUtils.isNullOrEmpty(bean.getOrderNo())) {
 			sql.append(" AND order_no = '").append(bean.getOrderNo())
 					.append("' ");
@@ -306,7 +308,7 @@ public class ServiceDaoImpl implements ServiceDao {
 		String sql = "UPDATE `shyl`.`bdf2_order` "
 				+ "SET  `order_com`=?, `order_ksdz`=?, "
 				+ "`order_jsdz`=?, `order_shjg`=?, `order_shrq`=?, `order_shsjd`=?, "
-				+ "`order_scry`=?, `order_scsj`=?, `order_desc`=?, `order_updown`=?, "
+				+ "`order_updateuser`=?, `order_updatetime`=?, `order_desc`=?, `order_updown`=?, "
 				+ "`order_havenumber`=?, `order_number`=? "
 				+ "WHERE (`order_no`=?)";
 		PreparedStatement pstmt = null;
@@ -338,14 +340,16 @@ public class ServiceDaoImpl implements ServiceDao {
 	}
 
 	// delete from shyl.bdf2_order where order_no = '' ;
-	public int deleteOrder(String orderNo) {
+	public int deleteOrder(String user, String orderNo) {
 		int result = 0;
 		Connection conn = JdbcUtils.getConn();
-		String sql = "delete from shyl.bdf2_order where order_no = ? '";
+		String sql = "update shyl.bdf2_order set order_updatetime = ? , order_updateuser = ? , order_isdel = '1' where order_no = ? ";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
-			pstmt.setString(1, orderNo);
+			pstmt.setString(1, DateUtils.getStringYMDHMS(DateUtils.getYMDHMS()));
+			pstmt.setString(2, user);
+			pstmt.setString(3, orderNo);
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
