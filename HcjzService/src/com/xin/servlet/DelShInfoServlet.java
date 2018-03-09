@@ -16,7 +16,7 @@ import com.xin.utils.StringsUtils;
 
 public class DelShInfoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -3219077842460709791L;
+	private static final long serialVersionUID = -6951561548246263938L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

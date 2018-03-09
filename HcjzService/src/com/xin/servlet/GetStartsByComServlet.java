@@ -14,7 +14,8 @@ import com.xin.dao.ServiceDao;
 import com.xin.dao.impl.ServiceDaoImpl;
 
 public class GetStartsByComServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754737449L;
+
+	private static final long serialVersionUID = -6473325771697372511L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

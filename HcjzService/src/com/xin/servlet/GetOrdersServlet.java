@@ -18,7 +18,8 @@ import com.xin.utils.DebugUtils;
 import com.xin.utils.StringsUtils;
 
 public class GetOrdersServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+
+	private static final long serialVersionUID = 3507277302398175229L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

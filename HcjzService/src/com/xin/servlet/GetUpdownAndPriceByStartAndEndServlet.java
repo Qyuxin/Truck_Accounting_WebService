@@ -18,7 +18,8 @@ import com.xin.dao.impl.ServiceDaoImpl;
 import com.xin.utils.StringsUtils;
 
 public class GetUpdownAndPriceByStartAndEndServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+
+	private static final long serialVersionUID = 2651610782955733399L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

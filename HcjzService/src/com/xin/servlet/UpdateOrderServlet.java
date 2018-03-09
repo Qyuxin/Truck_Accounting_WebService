@@ -15,7 +15,8 @@ import com.xin.dao.impl.ServiceDaoImpl;
 import com.xin.utils.StringsUtils;
 
 public class UpdateOrderServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+
+	private static final long serialVersionUID = 1172240408851871357L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

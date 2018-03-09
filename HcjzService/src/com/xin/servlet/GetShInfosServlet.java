@@ -19,7 +19,8 @@ import com.xin.utils.DebugUtils;
 import com.xin.utils.StringsUtils;
 
 public class GetShInfosServlet extends HttpServlet{
-	private static final long serialVersionUID = 6990197275754777449L;
+
+	private static final long serialVersionUID = -4328138918314397813L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

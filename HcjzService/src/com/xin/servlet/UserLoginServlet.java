@@ -14,8 +14,8 @@ import com.xin.utils.StringsUtils;
 
 public class UserLoginServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -3781529207291777855L;
-	
+	private static final long serialVersionUID = -591727157675129814L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
